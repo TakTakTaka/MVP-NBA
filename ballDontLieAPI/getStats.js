@@ -4,11 +4,7 @@ var request = require('request')
 
 
 //Search Player:
-
-
-
-
-function playerSearch(player) {
+function getPlayerStats({player}, callback) {
     var url = `https://www.balldontlie.io/api/v1/players?search=${player}`
 
     request(url, (err, res, body) => {
@@ -23,15 +19,10 @@ function playerSearch(player) {
         request(url, (err, res, body) => {
             if(err){throw err}
             var stats = JSON.parse(body)
-            console.log(`Player selected ${player} has ID ${playerId} and the following stats:`, stats )
-            
-            return stats
-        })
-        
-            
+            // console.log(`Player selected ${player} has ID ${playerId} and the following stats:`, stats )
+            callback(stats);
+        });
     })
 }
 
-// https://www.balldontlie.io/api/v1/stats?player_ids[]=132&start_date=2020-01-01
-
-playerSearch('luka doncic')
+module.exports.getPlayerStats = getPlayerStats;
