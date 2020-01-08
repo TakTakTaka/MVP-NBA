@@ -10,10 +10,15 @@ class App extends React.Component {
      playerA: '',
      playerB: '' 
     }
+
+    this.getPlayerStats = this.getPlayerStats.bind(this);
   }
 
   //handle post request to server
-
+  //Add name to state if player exists from API
+  getPlayerStats(player) {
+    
+  }
   //handle state change of player A/B
 
   //handle getting player stats
