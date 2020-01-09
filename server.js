@@ -11,8 +11,11 @@ app.use(express.urlencoded({extended: true}))
 
 //post data from search
 app.post('/playerStats', function(req, res) {
-  stats.getPlayerStats(req.body, (stats) => {
-    console.log(stats)
+  stats.getPlayerStats(req.body, ({data}) => {
+    //data is stats over the past week. getting the first set of data (won't always be the most recent)
+    ({pts, reb, ast, blk, stl} = data[0])
+    var playerData = {pts, reb, ast, blk, stl}
+    console.log(playerData)
     res.send(stats)
   })
 })
