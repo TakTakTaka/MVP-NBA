@@ -16,7 +16,8 @@ sequelize
   const PlayerA = sequelize.define('player', {
     player: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     pts: {
       type: Sequelize.INTEGER
@@ -35,7 +36,32 @@ sequelize
     },
   })
 
-  PlayerA.sync({force: true}).then(()=> {
+  PlayerA.sync({force: false}).then(()=> {
     console.log(`Table for PlayerA created`)
   })
   // var playerData = {pts, reb, ast, blk, stl}
+
+
+  function savePlayerA (playerStats) {
+    // var testPlayer = { player: 'luka doncic', pts: 31, reb: 13, ast: 7, blk: 1, stl: 0 }
+    PlayerA.create(playerStats)
+      .then(player => {
+        console.log(`${player.player}'s stats have been added to the databse!`)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  function findPlayerA() {
+
+  }
+
+  function clearTablesA() {
+    PlayerA.sync({force: true})
+      .then(() => {
+        console.log(`Player A database has been cleared`)
+      })
+  }
+
+  module.exports = {savePlayerA, findPlayerA, clearTablesA}

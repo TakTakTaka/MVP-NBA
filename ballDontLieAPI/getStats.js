@@ -20,7 +20,7 @@ function getPlayerStats({player}, callback) {
             if(err){throw err}
             var stats = JSON.parse(body)
             // console.log(`Player selected ${player} has ID ${playerId} and the following stats:`, stats )
-            callback(stats);
+            callback(player, stats);
         });
     })
 }
