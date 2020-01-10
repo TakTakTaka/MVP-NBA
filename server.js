@@ -15,13 +15,19 @@ app.get('/', function(req, res) {
   res.end()
 })
 
-app.get('/teamA', function(req, res) {
-  getTeamA((data) => {
-    // console.log(data);
-    res.send(data)
-  })
-  
-});
+// app.get('/teamA', function(req, res) {
+//   getTeamA((data) => {
+//     // console.log(data);
+//     res.send(data)
+//   })
+//   //Also get Team B. send as promises?  
+// });
+
+// app.post("/clearTeam", function (req, res) {
+//   clearTeamA();
+//   res.send(`TeamA cleared`)
+//   res.end()
+// });
 
 //post data from search
 app.post('/playerStats', function(req, res) {
@@ -34,21 +40,24 @@ app.post('/playerStats', function(req, res) {
     // console.log(playerData)
     savePlayerA(playerData)
     res.send(stats)
+    // res.end()
   })
+})
 
-  // app.get('/teamA', function(req, res) {
-  //   getTeamA('testing')
-  //   res.end()
-  // });
-
-
-  app.post("/clearTeamA", function (req, res) {
+app.post("/clearTeam", function (req, res) {
+  clearTeamA(() => {
     res.send(`TeamA cleared`)
     res.end()
   });
+});
 
-
-})
+app.get('/teamA', function(req, res) {
+  getTeamA((data) => {
+    // console.log(data);
+    res.send(data)
+  })
+  //Also get Team B. send as promises?  
+});
 
 //save data to database
 

@@ -20,13 +20,14 @@ class App extends React.Component {
 
     this.getPlayerStats = this.getPlayerStats.bind(this);
     this.getTeams = this.getTeams.bind(this);
+    this.clearData = this.clearData.bind(this);
   }
 
   componentDidMount() {
     this.getTeams(()=> {console.log('component mounted')})
   }
 
-  getTeams(callback) {
+  getTeams() {
     //make calls to the server to get saved data from db
     //TEST promises
     $.get('/teamA', (data) => {
@@ -35,7 +36,6 @@ class App extends React.Component {
       this.setState({
         teamA: data
       })
-
     })
 
 
@@ -48,12 +48,22 @@ class App extends React.Component {
   }
   //handle post request to server
   //Add name to state if player exists from API
-  getPlayerStats(player, callback) {
+  getPlayerStats(player) {
     var data = {player}
     $.ajax({
       type: 'POST',
       url: '/playerStats',
-      data: data
+      data: data,
+      success: this.getTeams
+    })
+  }
+
+  clearData(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '/clearTeam',
+      success: this.getTeams
     })
   }
   //handle state change of player A/B
@@ -68,6 +78,9 @@ class App extends React.Component {
           <TeamA team={this.state.teamA}/>
           <TeamB team={this.state.teamB}/>
         </div>
+        <form onSubmit={this.clearData}>
+          <input type="submit" value="Start New Game"></input>
+        </form>
       </div>
     )
   }

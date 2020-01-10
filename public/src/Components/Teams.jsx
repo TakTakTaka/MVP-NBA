@@ -3,9 +3,14 @@ import React from 'react';
 export function TeamA(props) {
   console.log('component Team A: ', props.team)
   var team = props.team;
-  var teamList = team.map((player) => 
-    <li key={player.id}>
-      {player.player}
+  var teamList = team.map(({player, id, pts, reb, ast, blk, stl}) => 
+    <li key={id}>
+      <div>
+        {player}
+      </div>
+      <div>
+        pts: {pts}, reb: {reb}, ast: {ast}, blk: {blk}, stl: {stl}
+      </div>
     </li>
   )
 
