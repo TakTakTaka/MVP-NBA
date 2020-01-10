@@ -6,6 +6,8 @@ class Search extends React.Component {
 
     this.state = {
       value: '',
+      playerA: '',
+      playerB: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,7 +36,7 @@ class Search extends React.Component {
           Choose Player:
           <input type="text" value={this.state.value} onChange={this.handleChange}></input>
         </label>
-        <input type="submit" value="Find Player"></input>
+        <input type="submit" value="Player for TeamA"></input>
       </form>  
     )
   }

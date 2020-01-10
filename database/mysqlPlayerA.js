@@ -53,15 +53,25 @@ sequelize
       })
   }
 
-  function findPlayerA() {
-
+  function getTeamA(callback) {
+    // console.log(callback)
+    PlayerA.findAll()
+      .then(players => {
+        // callback(null, players)
+        // console.log('this is the callback: ', callback)
+        // console.log(`this is Team A: ${JSON.stringify(players)}`)
+        callback(players);
+        // callback(null, players);
+      })
   }
 
-  function clearTablesA() {
+  function clearTeamA() {
     PlayerA.sync({force: true})
       .then(() => {
         console.log(`Player A database has been cleared`)
       })
   }
 
-  module.exports = {savePlayerA, findPlayerA, clearTablesA}
+  module.exports = {savePlayerA, getTeamA, clearTeamA}
+
+  // getTeamA()
