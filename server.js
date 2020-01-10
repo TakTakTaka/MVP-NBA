@@ -4,6 +4,7 @@ const port = 3000;
 const $ = require('jquery');
 const stats = require('./ballDontLieAPI/getStats.js')
 const {savePlayerA, getTeamA, clearTeamA} = require('./database/mysqlPlayerA.js')
+const {savePlayerB, getTeamB, clearTeamB} = require('./database/mongoPlayerB.js')
 
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
@@ -38,8 +39,11 @@ app.post('/playerStats', function(req, res) {
     ({pts, reb, ast, blk, stl} = data[0])
     var playerData = {player, pts, reb, ast, blk, stl}
     // console.log(playerData)
-    savePlayerA(playerData)
-    res.send(stats)
+    savePlayerA(playerData, ()=> {
+      savePlayerB(playerData, () => {
+        res.end()
+      })
+    })
     // res.end()
   })
 })

@@ -42,11 +42,12 @@ sequelize
   // var playerData = {pts, reb, ast, blk, stl}
 
 
-  function savePlayerA (playerStats) {
+  function savePlayerA (playerStats, next) {
     // var testPlayer = { player: 'luka doncic', pts: 31, reb: 13, ast: 7, blk: 1, stl: 0 }
     PlayerA.create(playerStats)
       .then(player => {
         console.log(`${player.player}'s stats have been added to the databse!`)
+        next();
       })
       .catch(err => {
         console.error(err)
