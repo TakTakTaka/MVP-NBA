@@ -50,15 +50,19 @@ app.post('/playerStats', function(req, res) {
 
 app.post("/clearTeam", function (req, res) {
   clearTeamA(() => {
-    res.send(`TeamA cleared`)
-    res.end()
+    clearTeamB(() => {
+      res.send(`Teamas cleared`)
+      res.end()
+    })
   });
 });
 
 app.get('/teamA', function(req, res) {
-  getTeamA((data) => {
+  getTeamA((dataA) => {
     // console.log(data);
-    res.send(data)
+    getTeamB((dataB) => {
+      res.send({A: dataA, B: dataB});
+    })
   })
   //Also get Team B. send as promises?  
 });

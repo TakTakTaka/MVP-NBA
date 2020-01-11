@@ -49,11 +49,17 @@ function savePlayerB (playerStats, next) {
 
 
 function getTeamB (callback) {
-
+  PlayerB.find((err, data) => {
+    console.log('mongodb data: ', data);
+    callback(data)
+  })
 }
 
 function clearTeamB(next) {
-
+  PlayerB.deleteMany({pts: {$gte: 0}}, () => {
+    console.log('should delete all in mongodb')
+    next()
+  })
 }
 
 module.exports = {savePlayerB, getTeamB, clearTeamB}

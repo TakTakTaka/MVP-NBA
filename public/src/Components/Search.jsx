@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Search extends React.Component {
+export class Search extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,6 +25,7 @@ class Search extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
+    console.log(e.value)
     this.props.getPlayerStats(this.state.value);
     this.setState({
       value: ''
@@ -40,10 +41,8 @@ class Search extends React.Component {
           <input type="text" value={this.state.value} onChange={this.handleChange}></input>
         </label>
         <input type="submit" value="Player for TeamA"></input>
+        <input type="submit" value="Player for TeamB"></input>
       </form>  
     )
   }
 }
-
-export default Search;
-// module.exports.Search = Search

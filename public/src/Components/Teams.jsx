@@ -31,9 +31,14 @@ export function TeamA(props) {
 export function TeamB(props) {
   console.log('component Team B: ', props.team)
   var team = props.team;
-  var teamList = team.map((player) => 
-    <li key={player.id}>
-      {player.player}
+  var teamList = team.map(({player, _id, pts, reb, ast, blk, stl}) => 
+    <li key={_id}>
+      <div>
+        {player}
+      </div>
+      <div>
+        pts: {pts}, reb: {reb}, ast: {ast}, blk: {blk}, stl: {stl}
+      </div>
     </li>
   )
 

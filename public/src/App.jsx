@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import $ from 'jquery';
-import Search from './Components/Search.jsx'
+import {SelectB, Search} from './Components/Search.jsx'
 import {TeamA, TeamB} from './Components/Teams.jsx'
 
 
@@ -30,11 +30,13 @@ class App extends React.Component {
   getTeams() {
     //make calls to the server to get saved data from db
     //TEST promises
-    $.get('/teamA', (data) => {
+    $.get('/teamA', ({A, B}) => {
    
-      console.log('this is Team A', data);
+      console.log('this is Team A', A);
+      console.log('this is Team B', B);
       this.setState({
-        teamA: data
+        teamA: A,
+        teamB: B
       })
     })
 
