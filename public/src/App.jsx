@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery';
 import {SelectB, Search} from './Components/Search.jsx'
 import {TeamA, TeamB} from './Components/Teams.jsx'
+import {Results} from './Components/Results.jsx'
 
 
  
@@ -21,10 +22,18 @@ class App extends React.Component {
     this.getPlayerStats = this.getPlayerStats.bind(this);
     this.getTeams = this.getTeams.bind(this);
     this.clearData = this.clearData.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   componentDidMount() {
     this.getTeams(()=> {console.log('component mounted')})
+  }
+
+  showResults(e) {
+    e.preventDefault();
+    this.setState({
+      showResults: !this.state.showResults
+    })
   }
 
   getTeams() {
@@ -50,8 +59,8 @@ class App extends React.Component {
   }
   //handle post request to server
   //Add name to state if player exists from API
-  getPlayerStats(player) {
-    var data = {player}
+  getPlayerStats(player, team) {
+    var data = {player, team}
     $.ajax({
       type: 'POST',
       url: '/playerStats',
@@ -66,6 +75,9 @@ class App extends React.Component {
       type: 'POST',
       url: '/clearTeam',
       success: this.getTeams
+    });
+    this.setState({
+      showResults: false
     })
   }
   //handle state change of player A/B
@@ -79,7 +91,11 @@ class App extends React.Component {
         <div>
           <TeamA team={this.state.teamA}/>
           <TeamB team={this.state.teamB}/>
+          <br></br>
+          <Results toggleResults={this.showResults} show={this.state.showResults} teamA={this.state.teamA} teamB={this.state.teamB}/>
+          {/* <button onClick={this.showResults}>Show Results</button> */}
         </div>
+        <br></br>
         <form onSubmit={this.clearData}>
           <input type="submit" value="Start New Game"></input>
         </form>

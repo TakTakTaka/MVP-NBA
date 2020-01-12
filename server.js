@@ -32,6 +32,8 @@ app.get('/', function(req, res) {
 
 //post data from search
 app.post('/playerStats', function(req, res) {
+  //req.body shape: {playerName, Team}
+  var team = req.body.team;
   stats.getPlayerStats(req.body, (player, {data}) => {
     //data is stats over the past week. getting the first set of data (won't always be the most recent)
     var player = player.toLowerCase();
@@ -39,6 +41,9 @@ app.post('/playerStats', function(req, res) {
     ({pts, reb, ast, blk, stl} = data[0])
     var playerData = {player, pts, reb, ast, blk, stl}
     // console.log(playerData)
+    
+    //Save player to databse based on teamA or B here
+    console.log('Player should be added to this team', team)
     savePlayerA(playerData, ()=> {
       savePlayerB(playerData, () => {
         res.end()
