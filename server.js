@@ -43,12 +43,20 @@ app.post('/playerStats', function(req, res) {
     // console.log(playerData)
     
     //Save player to databse based on teamA or B here
-    console.log('Player should be added to this team', team)
-    savePlayerA(playerData, ()=> {
-      savePlayerB(playerData, () => {
-        res.end()
-      })
-    })
+    // console.log('Player should be added to this team', team)
+    console.log(`${player} should be added to team ${team}`)
+    if (team === 'teamA') {
+      savePlayerA(playerData, () => res.end())
+    } else {
+      savePlayerB(playerData, () => res.end())
+    }
+    
+    
+    // savePlayerA(playerData, ()=> {
+    //   savePlayerB(playerData, () => {
+    //     res.end()
+    //   })
+    // })
     // res.end()
   })
 })
